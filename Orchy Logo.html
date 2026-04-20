@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ORCHY — Logo Exploration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    html, body { margin: 0; padding: 0; background: #f0eee9; }
+    * { box-sizing: border-box; }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="logo-marks.jsx"></script>
+<script type="text/babel" src="logo-mockups.jsx"></script>
+<script type="text/babel">
+// ─────────────────────────────────────────────────────────────
+// Tweakable palette + typography
+// ─────────────────────────────────────────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "primary": "#B8436B",
+  "deep": "#7A1E32",
+  "ivory": "#FDF7F1",
+  "ink": "#2A1A1F",
+  "serifFamily": "Instrument Serif",
+  "sansFamily": "Inter Tight"
+}/*EDITMODE-END*/;
+
+// ─────────────────────────────────────────────────────────────
+// Artboard helper — fixed size, soft off-white, centered content
+// ─────────────────────────────────────────────────────────────
+function Board({ w, h, bg = '#FDF7F1', children, pad = 40, align = 'center' }) {
+  return (
+    <DCArtboard width={w} height={h} style={{ background: bg, borderRadius: 4 }}>
+      <div style={{
+        width: '100%', height: '100%',
+        display: 'flex', alignItems: 'center', justifyContent: align,
+        padding: pad,
+      }}>
+        {children}
+      </div>
+    </DCArtboard>
+  );
+}
+
+// Shared label block for each option
+function OptionLabel({ n, title, note }) {
+  return (
+    <div style={{ marginBottom: 10 }}>
+      <div style={{
+        fontFamily: '"Inter Tight", sans-serif',
+        fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase',
+        color: 'rgba(60,50,40,0.55)', fontWeight: 500,
+      }}>
+        {`0${n} · ${title}`}
+      </div>
+      {note && (
+        <div style={{
+          fontFamily: '"Instrument Serif", serif',
+          fontSize: 13, color: 'rgba(60,50,40,0.7)',
+          fontStyle: 'italic', marginTop: 2, maxWidth: 340,
+        }}>
+          {note}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  const C = TWEAK_DEFAULTS;
+
+  return (
+    <DesignCanvas>
+      {/* ───────── HEADER ───────── */}
+      <div style={{ padding: '0 60px 60px', maxWidth: 900 }}>
+        <div style={{
+          fontFamily: '"Inter Tight", sans-serif',
+          fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase',
+          color: 'rgba(60,50,40,0.6)', marginBottom: 14,
+        }}>
+          Logo exploration · April 2026
+        </div>
+        <div style={{
+          fontFamily: '"Instrument Serif", serif',
+          fontSize: 72, lineHeight: 0.95, letterSpacing: '-0.035em',
+          color: '#2A1A1F', marginBottom: 18,
+        }}>
+          orchy<span style={{ color: C.primary, fontStyle: 'italic' }}>.</span>
+        </div>
+        <div style={{
+          fontFamily: '"Instrument Serif", serif',
+          fontSize: 22, lineHeight: 1.4, color: 'rgba(40,30,20,0.75)',
+          maxWidth: 620, fontStyle: 'italic',
+        }}>
+          A modern dating app — elegant, personal, quietly confident. No hearts. No chat bubbles. The orchid is the whole language: a single petal, a bloom, a curve that opens.
+        </div>
+        <div style={{
+          display: 'flex', gap: 48, marginTop: 40,
+          fontFamily: '"Inter Tight", sans-serif', fontSize: 13,
+          color: 'rgba(60,50,40,0.7)',
+        }}>
+          <div>
+            <div style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 6, color: 'rgba(60,50,40,0.5)' }}>palette</div>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              {[C.deep, C.primary, '#F5B8C2', '#FCE4E6', C.ivory, C.ink].map(c => (
+                <div key={c} style={{ width: 26, height: 26, borderRadius: 999, background: c, border: '1px solid rgba(0,0,0,0.06)' }} />
+              ))}
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 6, color: 'rgba(60,50,40,0.5)' }}>type</div>
+            <div>Instrument Serif · Inter Tight</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 6, color: 'rgba(60,50,40,0.5)' }}>mood</div>
+            <div>Soft · romantic · editorial</div>
+          </div>
+        </div>
+      </div>
+
+      {/* ───────── SECTION 1 — SYMBOLS ───────── */}
+      <DCSection
+        title="Symbols — the mark"
+        subtitle="Six approaches to an orchid glyph, each built from curves only. The chosen symbol becomes the app icon."
+        gap={32}
+      >
+        <Board w={280} h={320} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={1} title="Petal" note="A single teardrop petal with an inner negative-space lip." />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyPetal size={140} color={C.primary} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={280} h={320} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={2} title="Bloom" note="Three petals in trefoil. The primary recommendation." />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyBloom size={150} color={C.primary} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={280} h={320} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={3} title="Curve" note="The most reductive — a single flowing curve. Favicon-friendly." />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyCurve size={150} color={C.primary} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={280} h={320} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={4} title="Monogram O" note="Two petal-halves forming the letter O." />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyMonogram size={150} color={C.primary} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={280} h={320} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={5} title="Line orchid" note="Hairline illustration — editorial, quieter." />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyLine size={150} color={C.deep} strokeWidth={1.6} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={280} h={320} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={6} title="Interlace" note="Two petals cradling — connection, without hearts." />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyInterlace size={150} color={C.primary} colorB={C.deep} />
+            </div>
+          </div>
+        </Board>
+      </DCSection>
+
+      {/* ───────── SECTION 2 — WORDMARKS ───────── */}
+      <DCSection
+        title="Wordmarks"
+        subtitle="Editorial serif with an italic tail (primary) and a refined grotesque with generous tracking (utility)."
+        gap={32}
+      >
+        <Board w={440} h={240} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={1} title="Serif wordmark" note="Instrument Serif with italic y." />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyWordmarkSerif size={96} color={C.ink} accent={C.primary} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={440} h={240} bg={C.ink}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <div style={{
+              fontFamily: '"Inter Tight", sans-serif', fontSize: 11, letterSpacing: '0.16em',
+              textTransform: 'uppercase', color: 'rgba(253,247,241,0.55)', fontWeight: 500, marginBottom: 8,
+            }}>
+              02 · Serif on ink
+            </div>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyWordmarkSerif size={96} color="#FDF7F1" accent="#F5B8C2" />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={440} h={240} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={3} title="Sans wordmark" note="Inter Tight, widely tracked — caption + UI use." />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyWordmarkSans size={48} color={C.ink} weight={500} />
+            </div>
+          </div>
+        </Board>
+      </DCSection>
+
+      {/* ───────── SECTION 3 — LOCKUPS ───────── */}
+      <DCSection
+        title="Lockups"
+        subtitle="Symbol + wordmark combinations for splash screens and marketing."
+        gap={32}
+      >
+        <Board w={360} h={380} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={1} title="Stacked · primary" />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyLockupVertical color={C.primary} textColor={C.ink} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={460} h={380} bg="#FDF7F1">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <OptionLabel n={2} title="Horizontal" />
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 22, width: '100%' }}>
+              <OrchyBloom size={72} color={C.primary} />
+              <OrchyWordmarkSerif size={72} color={C.ink} accent={C.primary} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={360} h={380} bg={C.deep}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+            <div style={{
+              fontFamily: '"Inter Tight", sans-serif', fontSize: 11, letterSpacing: '0.16em',
+              textTransform: 'uppercase', color: 'rgba(253,247,241,0.55)', fontWeight: 500, marginBottom: 8,
+            }}>
+              03 · Reversed
+            </div>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <OrchyLockupVertical color="#F5B8C2" textColor="#FDF7F1" />
+            </div>
+          </div>
+        </Board>
+      </DCSection>
+
+      {/* ───────── SECTION 4 — APP ICONS ───────── */}
+      <DCSection
+        title="App icon variations"
+        subtitle="iOS squircle, six background × mark pairings. Blush gradient is the recommended default."
+        gap={28}
+      >
+        {[
+          { bg: 'blush', mark: OrchyBloom, label: 'Bloom · blush (primary)' },
+          { bg: 'plum', mark: OrchyBloom, label: 'Bloom · plum' },
+          { bg: 'ivory', mark: OrchyCurve, label: 'Curve · ivory' },
+          { bg: 'blush', mark: OrchyMonogram, label: 'Monogram · blush' },
+          { bg: 'plum', mark: OrchyCurve, label: 'Curve · plum' },
+          { bg: 'white', mark: OrchyInterlace, label: 'Interlace · white' },
+        ].map((v, i) => (
+          <Board key={i} w={240} h={280} bg="#FDF7F1">
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', height: '100%' }}>
+              <div style={{
+                fontFamily: '"Inter Tight", sans-serif', fontSize: 10, letterSpacing: '0.14em',
+                textTransform: 'uppercase', color: 'rgba(60,50,40,0.55)', fontWeight: 500,
+              }}>
+                {`0${i+1} · ${v.label}`}
+              </div>
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+                <OrchyAppIcon size={160} bgMode={v.bg} MarkComponent={v.mark} />
+              </div>
+            </div>
+          </Board>
+        ))}
+      </DCSection>
+
+      {/* ───────── SECTION 5 — IN CONTEXT ───────── */}
+      <DCSection
+        title="In context"
+        subtitle="The primary icon on a home screen, business card front + back, and a splash frame."
+        gap={48}
+      >
+        <Board w={400} h={780} bg="#F0EBE4" pad={30}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%' }}>
+            <div style={{
+              fontFamily: '"Inter Tight", sans-serif', fontSize: 10, letterSpacing: '0.16em',
+              textTransform: 'uppercase', color: 'rgba(60,50,40,0.55)', fontWeight: 500,
+              alignSelf: 'flex-start', marginBottom: 20,
+            }}>
+              iOS home screen
+            </div>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <OrchyiOSHomeScreen width={300} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={520} h={780} bg="#F0EBE4" pad={40}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', width: '100%', height: '100%', gap: 24 }}>
+            <div style={{
+              fontFamily: '"Inter Tight", sans-serif', fontSize: 10, letterSpacing: '0.16em',
+              textTransform: 'uppercase', color: 'rgba(60,50,40,0.55)', fontWeight: 500,
+            }}>
+              Business card · front + back
+            </div>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 30 }}>
+              <OrchyBusinessCard side="front" width={420} />
+              <OrchyBusinessCard side="back" width={420} />
+            </div>
+          </div>
+        </Board>
+
+        <Board w={400} h={780} bg="#F0EBE4" pad={30}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%' }}>
+            <div style={{
+              fontFamily: '"Inter Tight", sans-serif', fontSize: 10, letterSpacing: '0.16em',
+              textTransform: 'uppercase', color: 'rgba(60,50,40,0.55)', fontWeight: 500,
+              alignSelf: 'flex-start', marginBottom: 20,
+            }}>
+              Splash screen
+            </div>
+            <div style={{
+              flex: 1, width: '100%',
+              borderRadius: 40, overflow: 'hidden',
+              background: 'linear-gradient(170deg, #FCE4E6 0%, #F5B8C2 45%, #D98AA0 80%, #9A4658 100%)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              position: 'relative',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.4)',
+            }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+                <OrchyBloom size={100} color="#FDF7F1" />
+                <OrchyWordmarkSerif size={64} color="#FDF7F1" accent="#FDF7F1" />
+                <div style={{
+                  fontFamily: '"Inter Tight", sans-serif', fontSize: 10,
+                  letterSpacing: '0.32em', textTransform: 'uppercase',
+                  color: 'rgba(253,247,241,0.8)', marginTop: 6,
+                }}>
+                  dating, in full bloom
+                </div>
+              </div>
+              <div style={{
+                position: 'absolute', bottom: 30, left: 0, right: 0,
+                textAlign: 'center',
+                fontFamily: '"Inter Tight", sans-serif', fontSize: 11,
+                color: 'rgba(253,247,241,0.65)', letterSpacing: '0.1em',
+              }}>
+                v 1.0
+              </div>
+            </div>
+          </div>
+        </Board>
+      </DCSection>
+
+      {/* ───────── SECTION 6 — SIZE & CLEARSPACE ───────── */}
+      <DCSection
+        title="Scale"
+        subtitle="The mark holds from 512px down to 16px favicon."
+        gap={28}
+      >
+        <Board w={720} h={260} bg="#FDF7F1" align="flex-start">
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 40, width: '100%', justifyContent: 'center' }}>
+            {[128, 64, 40, 24, 16].map(s => (
+              <div key={s} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+                <OrchyBloom size={s} color={C.primary} />
+                <div style={{ fontFamily: '"Inter Tight", sans-serif', fontSize: 10, letterSpacing: '0.1em', color: 'rgba(60,50,40,0.55)' }}>
+                  {s}px
+                </div>
+              </div>
+            ))}
+          </div>
+        </Board>
+      </DCSection>
+
+      <DCPostIt top={60} right={80} rotate={3} width={200}>
+        direction: orchid-as-language. petal = I, bloom = you, curve = us.
+      </DCPostIt>
+    </DesignCanvas>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Tweaks — lightweight panel for palette + typography
+// ─────────────────────────────────────────────────────────────
+function Tweaks({ open, values, onChange }) {
+  if (!open) return null;
+  const row = (label, key, type = 'color') => (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 10 }}>
+      <div style={{ fontFamily: '"Inter Tight", sans-serif', fontSize: 11, color: 'rgba(255,255,255,0.7)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{label}</div>
+      {type === 'color' ? (
+        <input type="color" value={values[key]} onChange={e => onChange(key, e.target.value)} style={{ width: 40, height: 26, border: 'none', borderRadius: 4, background: 'transparent', cursor: 'pointer' }} />
+      ) : (
+        <input type="text" value={values[key]} onChange={e => onChange(key, e.target.value)} style={{ width: 120, fontSize: 12, padding: '4px 8px', background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 4, fontFamily: 'inherit' }} />
+      )}
+    </div>
+  );
+  return (
+    <div style={{
+      position: 'fixed', bottom: 20, right: 20, zIndex: 9999,
+      background: '#1a1216', padding: 18, borderRadius: 8,
+      boxShadow: '0 12px 40px rgba(0,0,0,0.3)', width: 240,
+      fontFamily: '"Inter Tight", sans-serif',
+    }}>
+      <div style={{ fontFamily: '"Instrument Serif", serif', fontSize: 18, color: '#F5B8C2', marginBottom: 14, fontStyle: 'italic' }}>
+        Tweaks
+      </div>
+      {row('Primary', 'primary')}
+      {row('Deep', 'deep')}
+      {row('Ivory', 'ivory')}
+      {row('Ink', 'ink')}
+    </div>
+  );
+}
+
+function Root() {
+  const [tweaksOpen, setTweaksOpen] = React.useState(false);
+  const [values, setValues] = React.useState(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      if (!e.data || typeof e.data !== 'object') return;
+      if (e.data.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (e.data.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    // announce availability after listener is live
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const update = (key, val) => {
+    const next = { ...values, [key]: val };
+    setValues(next);
+    // live-apply by mutating TWEAK_DEFAULTS
+    Object.assign(TWEAK_DEFAULTS, next);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+  };
+
+  // Force re-render of App when values change by keying it
+  return (
+    <>
+      <App key={JSON.stringify(values)} />
+      <Tweaks open={tweaksOpen} values={values} onChange={update} />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Root />);
+</script>
+</body>
+</html>
